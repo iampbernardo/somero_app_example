@@ -1,13 +1,29 @@
-(function(){
-  var indexRoute = crossroads.addRoute('/index', function(){
-    console.log('Hey, here we are');
-  });
+var Routes = (function(jQuery, Handlebars, User){
+  return {
+    init: function() {
+      var indexRoute = crossroads.addRoute('/', function(){
 
-  function parseHash(newHash, oldHash){
-    crossroads.parse(newHash);
+      });
+
+      var loginRoute = crossroads.addRoute('/login', function(){
+        var source   = $("#login-template").html();
+        var template = Handlebars.compile(source);
+        $("#content").html(template);
+      });
+
+      var indexRoute = crossroads.addRoute('/index', function(){
+        jQuery(function(){
+          User.getPublicTimeline();
+        });
+      });
+
+      function parseHash(newHash, oldHash){
+        crossroads.parse(newHash);
+      }
+      
+      hasher.initialized.add(parseHash);
+      hasher.changed.add(parseHash);
+      hasher.init();
+    }
   }
-  hasher.initialized.add(parseHash); //parse initial hash
-  hasher.changed.add(parseHash); //parse hash changes
-  hasher.init(); //start listening for history change
-
-})();
+})(jQuery, Handlebars, User);

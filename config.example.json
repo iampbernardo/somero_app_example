@@ -1,4 +1,5 @@
 {
   "user_name" : "johndoe",
-  "password"  : "loquesea"
+  "password"  : "loquesea",
+  "node"      : "https://lamatriz.org"
 }
