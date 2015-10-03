@@ -1,0 +1,20 @@
+{
+  "name": "somero_app_example",
+  "version": "0.0.1",
+  "homepage": "https://github.com/voylinux/somero_app_example",
+  "authors": [
+    "voylinux <voylinux@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "GPL",
+  "private": true,
+  "dependencies": {
+    "building-blocks": "gh-pages",
+    "gaia-fonts": "gaia-components/gaia-fonts#~0.2.1",
+    "handlebars": "~4.0.3",
+    "localforage": "~1.2.10",
+    "hasher": "~1.2.0"
+  }
+}
