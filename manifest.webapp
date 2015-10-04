@@ -16,7 +16,9 @@
     "url": "http://voylinux.com"
   },
   "launch_path": "/index.html",
-  "installs_allowed_from": ["https://marketplace.firefox.com", "*"],
   "permissions": {
+    "systemXHR": {
+        "description": "Connection with GNU Social server."
+    }
   }
 }

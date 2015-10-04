@@ -1,12 +1,21 @@
+/**
+* Main app routes definitions
+*/
 var Routes = (function(jQuery, Handlebars, User, crossroads) {
   'use strict'
 
   return {
     init: function () {
+      /**
+      * Default route when enter the app
+      */
       var defaultRoute = crossroads.addRoute('/', function () {
 
-      })
+      });
 
+      /**
+      * Login actions
+      */
       var loginRoute = crossroads.addRoute('/login', function(){
         var source   = $("#login-template").html();
         var template = Handlebars.compile(source);
@@ -18,32 +27,23 @@ var Routes = (function(jQuery, Handlebars, User, crossroads) {
           var nickname = $('input[name="nickname"]').val().trim();
           var password = $('input[name="password"]').val().trim();
           var credentials = btoa(nickname + ":" + password);
-
           $.ajax({
             url: App.proxy + node + '/api/account/verify_credentials.json',
             method: 'GET',
             cache: false,
-            crossDomain: true,
+            dataType: "JSON",
             headers: {
               'Authorization': 'Basic ' + credentials
             },
           })
           .done(function(data) {
-            /**
-            * Store node name,credentials and user data
-            */
-            localforage.setItem('node', node)
-              .then(function() {
-                  localforage.setItem('user', data).then(function() {
-                    localforage.setItem('credentials', credentials).then(function() {
-                      console.info('login info stored');
-                      App.credentials = credentials;
-                      App.node = node;
-                      hasher.setHash('home');
-                      crossroads.parse('/home');
-                    });
-                  });
-              });
+            App.setNode(node);
+            App.setCredentials(credentials);
+            localforage.setItem('user', data).then(function() {
+              console.info('login info stored');
+              hasher.setHash('home');
+              crossroads.parse('/home');
+            });
           })
           .fail(function(error) {
             alert('No se ha podido comprobar la identidad');
@@ -51,18 +51,27 @@ var Routes = (function(jQuery, Handlebars, User, crossroads) {
         });
       });
 
+      /**
+      * Public timeline route
+      */
       var indexRoute = crossroads.addRoute('/index', function(){
         jQuery(function(){
           User.getPublicTimeline();
         });
       });
 
+      /**
+      * User timeline
+      */
       var indexRoute = crossroads.addRoute('/home', function(){
         jQuery(function(){
           User.getHomeTimeline();
         });
       });
 
+      /**
+      * Post a message route
+      */
       var postRoute = crossroads.addRoute('/post', function(){
         var source   = $("#post-template").html();
         var template = Handlebars.compile(source);
@@ -79,7 +88,7 @@ var Routes = (function(jQuery, Handlebars, User, crossroads) {
               status: msg
             },
             headers: {
-              'Authorization': 'Basic ' + App.credentials
+              'Authorization': 'Basic ' + App.getCredentials()
             },
             success: function(data) {
               console.log(data);
@@ -89,9 +98,11 @@ var Routes = (function(jQuery, Handlebars, User, crossroads) {
             }
           });
         });
-
       });
 
+      /**
+      * Logout and close all data
+      */
       var indexRoute = crossroads.addRoute('/exit', function(){
         jQuery(function(){
           localforage.clear();

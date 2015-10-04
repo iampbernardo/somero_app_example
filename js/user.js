@@ -4,7 +4,9 @@ var User = (function(jQuery, Handlebars){
   var homeTimelineUrl = '/api/statuses/home_timeline.json';
   var publicTimelineUrl = '/api/statuses/public_timeline.json';
 
-
+  /**
+  * Get user timeline
+  */
   function getHomeTimeline() {
         $.ajax({
           url: App.getProxy() + App.node + homeTimelineUrl,
@@ -27,6 +29,10 @@ var User = (function(jQuery, Handlebars){
           return false;
       });
   }
+
+  /**
+  * Get public timeline
+  */
   function getPublicTimeline() {
       $.getJSON( App.getProxy() + App.node + publicTimelineUrl )
         .done(function(data){
