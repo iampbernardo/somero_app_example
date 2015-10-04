@@ -3,13 +3,13 @@
   "name": "GNU Social app example",
   "description": "A basic Somero / GNU Social app example",
   "icons": {
-    "32": "/assets/images/icons/icon-32.png",
-    "60": "/assets/images/icons/icon-60.png",
-    "64": "/assets/images/icons/icon-64.png",
-    "90": "/assets/images/icons/icon-90.png",
-    "120": "/assets/images/icons/icon-120.png",
-    "128": "/assets/images/icons/icon-128.png",
-    "256": "/assets/images/icons/icon-256.png"
+    "32": "/img/icons/icon-32.png",
+    "60": "/img/icons/icon-60.png",
+    "64": "/img/icons/icon-64.png",
+    "90": "/img/icons/icon-90.png",
+    "120": "/img/icons/icon-120.png",
+    "128": "/img/icons/icon-128.png",
+    "256": "/img/icons/icon-256.png"
   },
   "developer": {
     "name": "@voylinux",
