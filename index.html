@@ -5,22 +5,24 @@
     <title>GNU Social Camp example</title>
     <!-- CSS vendors -->
     <link rel="stylesheet" href="bower_components/gaia-fonts/style.css">
-    <link rel="stylesheet" href="bower_components/normalize-css/normalize.css">
-
-    <link rel="stylesheet" href="css/lists.css">
-    <link rel="stylesheet" href="css/cross-browser.css">
-
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <!-- end css vendors -->
-    <!-- end css vendors -->
+
     <link rel="stylesheet" href="css/gnu-social.css">
 
     <!-- Libs -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/URIjs/src/URI.min.js"></script>
+    <script src="bower_components/jsonproxy/jsonp.js"></script>
+
     <script src="bower_components/js-signals/dist/signals.min.js"></script>
     <script src="bower_components/hasher/dist/js/hasher.js"></script>
     <script src="js/vendor/crossroads.js/dist/crossroads.min.js"></script>
     <script src="bower_components/localforage/dist/localforage.min.js"></script>
     <script src="bower_components/handlebars/handlebars.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
     <!-- end libs -->
 
     <!-- Our code -->
@@ -31,11 +33,32 @@
     <!-- end our code -->
   </head>
   <body>
+  <nav class="navbar navbar-default navbar-fixed-top text-center">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <div class="navbar-brand">
+          GNU Social Camp
+        </div>
+      </div>
+    </div>
+  </nav>
 
-    <div id="content">
-      <h1>GNU Social example</h1>
-      <a href="#/login">Login</a>
-      <a href="#/index">Go to index</a>
+  <div class="btn-group btn-group-justified" role="group" aria-label="Justified button group">
+      <a href="#/login" class="btn btn-default" role="button"><span class="glyphicon glyphicon-share"></a>
+      <a href="#/home" class="btn btn-default" role="button"><span class="glyphicon glyphicon-home"></a>
+      <a href="#/index" class="btn btn-default" role="button"><span class="glyphicon glyphicon-globe"></a>
+        <a href="#/post" class="btn btn-default" role="button"><span class="glyphicon glyphicon-plus"></a>
+
+      <a href="#/exit" class="btn btn-default" role="button"><span class="glyphicon glyphicon-off"></a>
+  </div>
+
+    <div class="container-fluid" id="content">
+      <div class="container">
+        <h1 class="text-center">GNU Social</h1>
+        <div class="container-fluid text-center">
+          <img src="img/gnusocial.png" class="img-responsive" alt="GNU Social" />
+        </div>
+      </div>
     </div>
 
 
@@ -44,25 +67,39 @@
     <!-- Basic templates structure -->
     <script id="login-template" type="text/x-handlebars-template">
       <div class="login">
-          <input type="text" name="node" value="" placeholder="La Matriz">
-          <input type="text" name="nickname" value="" placeholder="Usuario">
-          <input type="password" name="password" value="" placeholder="password">
-
-          <input type="button" name="save" value="Guardar">
+        <form>
+          <div class="form-group">
+            <label for="node">Nodo</label>
+            <input type="text" name="node" value="" class="form-control" placeholder="La Matriz">
+          </div>
+          <div class="form-group">
+            <label for="nickname">Nickname</label>
+            <input type="text" name="nickname" value="" class="form-control" placeholder="Usuario">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" value="" class="form-control" placeholder="password">
+          </div>
+          <a id="login-button" class="btn btn-default">Guardar</a>
+        </form>
       </div>
     </script>
 
     <script id="entry-template" type="text/x-handlebars-template">
       <section data-type="list" class="statuses">
         {{#if statuses}}
-        <ul>
+        <ul class="list-group">
           {{#each statuses}}
-          <li class="status">
-            <aside class="pack-end">
-              <img src="{{user.profile_image_url_profile_size}}" alt="user.name" />
-            </aside>
-              <p>{{user.screen_name}}</p>
-              <p>{{text}}</p>
+          <li class="list-group-item">
+            <div class="media">
+              <div class="media-left media-top">
+                <img src="{{user.profile_image_url_profile_size}}" class="img-responsive media-object avatar" alt="{{user.name}}" />
+              </div>
+              <div class="media-body">
+                <h3 class="media-heading"><span class="text-muted">{{user.name}}</span> {{user.screen_name}}</h3>
+                <p>{{{statusnet_html}}}</p>
+              </div>
+            </div>
           </div>
           {{/each}}
         </li>
@@ -74,6 +111,18 @@
           {{body}}
         </div>
       </section>
+    </script>
+
+    <script id="post-template" type="text/x-handlebars-template">
+      <div class="post">
+        <form>
+          <div class="form-group">
+            <label for="post-text">Comentario</label>
+            <textarea name="post-text" class="form-control" rows="3"></textarea>
+          </div>
+          <a id="post-button" class="btn btn-default">Enviar</a>
+        </form>
+      </div>
     </script>
     <!-- end basic templates -->
   </body>

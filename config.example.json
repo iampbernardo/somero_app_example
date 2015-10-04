@@ -1,5 +1,3 @@
 {
-  "user_name" : "johndoe",
-  "password"  : "loquesea",
-  "node"      : "https://lamatriz.org"
+  "proxy" : "http://example.com/"
 }

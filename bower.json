@@ -17,6 +17,8 @@
     "localforage": "~1.2.10",
     "hasher": "~1.2.0",
     "jquery": "~2.1.4",
-    "normalize-css": "normalize.css#~3.0.3"
+    "normalize-css": "normalize.css#~3.0.3",
+    "bootstrap": "~3.3.5",
+    "jsonproxy": "~0.3.1"
   }
 }
